@@ -1,0 +1,47 @@
+<resources>
+    <string name="app_name">Basic Layout In Compose</string>
+    <string name="title_align_your_body">Align Your Body</string>
+    <string name="title_favorite_collection">Favorite Collection</string>
+
+    <string name="bottom_navigation_home">Home</string>
+    <string name="bottom_navigation_account">Account</string>
+
+    <string name="description_search">Search</string>
+    <string name="placeholder_search">Search</string>
+
+    <string name="text_ab1_inversions">Inversions</string>
+    <string name="description_ab1_inversions">A woman performing an inversion yoga exercise</string>
+
+    <string name="text_ab2_quick_yoga">Quick Yoga</string>
+    <string name="description_ab2_quick_yoga">Quick Yoga</string>
+
+    <string name="text_ab3_stretching">Stretching</string>
+    <string name="description_ab3_stretching">Stretching</string>
+
+    <string name="text_ab4_tabata">Tabata</string>
+    <string name="description_ab4_tabata">Tabata</string>
+
+    <string name="text_ab5_hiit">HIIT</string>
+    <string name="description_ab5_hiit">HIIT</string>
+
+    <string name="text_ab6_pre_natal_yoga">Pre-natal Yoga</string>
+    <string name="description_ab6_pre_natal_yoga">Pre-natal Yoga</string>
+
+    <string name="description_fc1_short_mantras">Short Mantras</string>
+    <string name="text_fc1_short_mantras">Short Mantras</string>
+
+    <string name="description_fc2_nature_meditations">A close-up picture of some green leaves</string>
+    <string name="text_fc2_nature_meditations">Nature meditations</string>
+
+    <string name="description_fc3_stress_and_anxiety">Stress and Anxiety</string>
+    <string name="text_fc3_stress_and_anxiety">Stress and Anxiety</string>
+
+    <string name="description_fc4_self_massage">Self Massage</string>
+    <string name="text_fc4_self_massage">Self Massage</string>
+
+    <string name="description_fc5_overwhelmed">Overwhelmed</string>
+    <string name="text_fc5_overwhelmed">Overwhelmed</string>
+
+    <string name="description_fc6_nightly_wind_down">Nightly Wind Down</string>
+    <string name="text_fc6_nightly_wind_down">Nightly Wind Down</string>
+</resources>
