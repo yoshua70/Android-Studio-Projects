@@ -7,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -14,6 +15,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
@@ -36,11 +38,17 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationRail
+import androidx.compose.material3.NavigationRailItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
+import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
+import androidx.compose.material3.windowsizeclass.WindowSizeClass
+import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
+import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -52,7 +60,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.michee.codelabs.basiclayoutincompose.ui.theme.BasicLayoutInComposeTheme
 
-val alignYourBodyData = listOf<AlignYourBodyData>(
+val alignYourBodyData = listOf(
     AlignYourBodyData(
         drawable = R.drawable.ab1_inversions,
         drawableDescription = R.string.description_ab1_inversions,
@@ -85,7 +93,7 @@ val alignYourBodyData = listOf<AlignYourBodyData>(
     ),
 )
 
-val favoriteCollectionData = listOf<FavoriteCollectionData>(
+val favoriteCollectionData = listOf(
     FavoriteCollectionData(
         drawable = R.drawable.fc1_short_mantras,
         drawableDescription = R.string.description_fc1_short_mantras,
@@ -119,13 +127,25 @@ val favoriteCollectionData = listOf<FavoriteCollectionData>(
 )
 
 class MainActivity : ComponentActivity() {
+    @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            BasicLayoutInComposeTheme {
-                // MainApp(Modifier.fillMaxSize())
-            }
+            val windowSize = calculateWindowSizeClass(this)
+            MySootheApp(windowSize)
+        }
+    }
+}
+
+@Composable
+fun MySootheApp(windowSize: WindowSizeClass) {
+    when(windowSize.widthSizeClass) {
+        WindowWidthSizeClass.Expanded -> {
+            MySootheAppLandscape()
+        }
+        WindowWidthSizeClass.Compact -> {
+            MySootheAppPortrait()
         }
     }
 }
@@ -135,8 +155,20 @@ fun MySootheAppPortrait() {
     BasicLayoutInComposeTheme {
         Scaffold(
             bottomBar = { SootheBottomNavigation() }
-        ) { padding ->
+        ) { _ ->
             HomeScreen(Modifier.padding())
+        }
+    }
+}
+
+@Composable
+fun MySootheAppLandscape() {
+    Surface(modifier = Modifier.background(MaterialTheme.colorScheme.background)) {
+        BasicLayoutInComposeTheme {
+            Row {
+                SootheNavigationRail()
+                HomeScreen()
+            }
         }
     }
 }
@@ -217,6 +249,51 @@ fun SootheBottomNavigation(modifier: Modifier = Modifier) {
             selected = false,
             onClick = {}
         )
+    }
+}
+
+@Composable
+fun SootheNavigationRail(modifier: Modifier = Modifier) {
+    NavigationRail(
+        containerColor = MaterialTheme.colorScheme.background,
+        modifier = modifier.padding(start = 8.dp, end = 8.dp)
+    ) {
+        Column(
+            modifier = modifier.fillMaxHeight(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            NavigationRailItem(
+                icon = {
+                    Icon(
+                        imageVector = Icons.Filled.Spa,
+                        contentDescription = null
+                    )
+                },
+                label = {
+                    Text(
+                        text = stringResource(R.string.bottom_navigation_home)
+                    )
+                },
+                selected = true,
+                onClick = {}
+            )
+            NavigationRailItem(
+                icon = {
+                    Icon(
+                        imageVector = Icons.Filled.AccountCircle,
+                        contentDescription = null
+                    )
+                },
+                label = {
+                    Text(
+                        text = stringResource(R.string.bottom_navigation_account)
+                    )
+                },
+                selected = false,
+                onClick = {}
+            )
+        }
     }
 }
 
@@ -359,6 +436,12 @@ fun MySootheAppPortraitPreview() {
     MySootheAppPortrait()
 }
 
+@Preview(showBackground = true, heightDp = 320, widthDp = 720)
+@Composable
+fun MySootheAppLandscapePreview() {
+    MySootheAppLandscape()
+}
+
 @Preview(showBackground = true)
 @Composable
 fun HomeScreenPreview() {
@@ -372,6 +455,14 @@ fun HomeScreenPreview() {
 fun SootheBottomNavigationPreview() {
     BasicLayoutInComposeTheme {
         SootheBottomNavigation(modifier = Modifier)
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun SootheNavigationRailPreview() {
+    BasicLayoutInComposeTheme {
+        SootheNavigationRail(modifier = Modifier)
     }
 }
 
